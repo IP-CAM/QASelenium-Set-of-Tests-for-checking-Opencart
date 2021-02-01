@@ -1,7 +1,5 @@
 import pytest
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from helpers import assert_displayed_unique_element
 
 
 @pytest.fixture
@@ -28,6 +26,8 @@ def test_header_of_page(browser):
     проверка отображения заголовка товара в странице продукта
     """
     header_of_product_xpath = "//*[@id='content']/div/div[2]/h1"
+    assert_displayed_unique_element(browser, header_of_product_xpath)
+
     header_of_product = browser.find_element_by_xpath(header_of_product_xpath)
     assert header_of_product.text == "Samsung Galaxy Tab 10.1"
 
@@ -48,9 +48,8 @@ def test_main_image_of_product_is_present(browser):
     проверка отображения изображения продукта
     """
     main_img_xpath = "//*[@id='content']/div/div[1]/ul[1]/li[1]/a/img"
-    assert WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, main_img_xpath))
-    )
+    assert_displayed_unique_element(browser, main_img_xpath)
+
     main_img = browser.find_element_by_xpath(main_img_xpath)
     assert main_img.get_attribute("src").endswith(".jpg")
 
@@ -62,13 +61,9 @@ def test_price_of_product(browser):
     price_xpath = "//*[@id='content']/div/div[2]/ul[2]/li[1]/h2"
     currency_xpath = "//*[@id='form-currency']/div/button/strong"
 
-    assert WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, currency_xpath))
-    )
+    assert_displayed_unique_element(browser, price_xpath)
+    assert_displayed_unique_element(browser, currency_xpath)
 
-    assert WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, price_xpath))
-    )
     currency = browser.find_element_by_xpath(currency_xpath)
     price = browser.find_element_by_xpath(price_xpath)
 

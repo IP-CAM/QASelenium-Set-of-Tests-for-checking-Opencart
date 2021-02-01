@@ -1,7 +1,5 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import pytest
+from helpers import assert_displayed_unique_element
 
 
 @pytest.fixture
@@ -27,19 +25,19 @@ def test_text_of_header_is_desktops(browser):
     """
     проверка наличия заголовка Desktops в странице
     """
-    assert WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.TAG_NAME, "h2"))
-    )
-    assert browser.find_element_by_xpath("//*[@id='content']/h2").text == "Desktops"
+    h2_xpath = "//*[@id='content']/h2"
+    assert_displayed_unique_element(browser, h2_xpath)
+
+    h2 = browser.find_element_by_xpath(h2_xpath)
+    assert h2.text == "Desktops"
 
 
 def test_left_menu_present(browser):
     """
     проверка отображения меню слева
     """
-    assert WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.ID, "column-left"))
-    )
+    column_left_xpath = "//*[@id='column-left']"
+    assert_displayed_unique_element(browser, column_left_xpath)
 
 
 def test_text_description_is_present(browser):
@@ -47,9 +45,7 @@ def test_text_description_is_present(browser):
     проверка отображения описания блока
     """
     description_xpath = "//*[@id='content']/div[1]/div[2]/p"
-    assert WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, description_xpath))
-    )
+    assert_displayed_unique_element(browser, description_xpath)
     description = browser.find_element_by_xpath(description_xpath)
     assert description.text == "Example of category description text"
 
