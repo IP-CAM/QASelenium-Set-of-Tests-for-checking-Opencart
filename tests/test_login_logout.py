@@ -62,3 +62,4 @@ def test_incorrect_login(browser, wrong_user):
     assert_displayed_unique_element(browser, field_username_xpath)
     assert_displayed_unique_element(browser, field_password_xpath)
     assert_displayed_unique_element(browser, button_xpath)
+    assert "user_token" not in browser.current_url
