@@ -1,5 +1,5 @@
 import pytest
-from helpers import assert_displayed_unique_element
+from helpers import get_displayed_unique_element
 import time
 
 
@@ -29,11 +29,11 @@ def browser(browser, admin_url, right_user):
     field_password.send_keys(password)
     button.click()
 
-    assert_displayed_unique_element(browser, menu_catalog_xpath)
+    get_displayed_unique_element(browser, menu_catalog_xpath)
     menu_catalog = browser.find_element_by_xpath(menu_catalog_xpath)
     menu_catalog.click()
 
-    assert_displayed_unique_element(browser, menu_products_xpath)
+    get_displayed_unique_element(browser, menu_products_xpath)
     menu_products = browser.find_element_by_xpath(menu_products_xpath)
     menu_products.click()
 
@@ -42,7 +42,7 @@ def browser(browser, admin_url, right_user):
 
 def test_table_with_product_is_displayed(browser):
     table_xpath = "//*[@id='form-product']/div/table"
-    assert_displayed_unique_element(browser, table_xpath)
+    get_displayed_unique_element(browser, table_xpath)
 
 
 def test_count_of_column(browser):
@@ -53,7 +53,7 @@ def test_count_of_column(browser):
 
 def test_count_column_of_products_table(browser):
     table_xpath = "//*[@id='form-product']/div/table"
-    assert_displayed_unique_element(browser, table_xpath)
+    get_displayed_unique_element(browser, table_xpath)
     table = browser.find_element_by_xpath(table_xpath)
 
     header_image_xpath = "./thead/tr/td[2]"

@@ -1,5 +1,5 @@
 import pytest
-from helpers import assert_displayed_unique_element
+from helpers import get_displayed_unique_element
 
 
 @pytest.fixture
@@ -35,7 +35,7 @@ def test_correct_login(browser, right_user):
     field_username.send_keys(user)
     field_password.send_keys(password)
     button.click()
-    # assert_displayed_unique_element(browser, logout_xpath)
+    # get_displayed_unique_element(browser, logout_xpath)
     logout = browser.find_element_by_xpath(logout_xpath)
     assert "Logout" in logout.text
     assert "user_token" in browser.current_url
@@ -56,10 +56,10 @@ def test_incorrect_login(browser, wrong_user):
     field_username.send_keys(user)
     field_password.send_keys(password)
     button.click()
-    assert_displayed_unique_element(browser, notification_area_xpath)
+    get_displayed_unique_element(browser, notification_area_xpath)
     notification_area = browser.find_element_by_xpath(notification_area_xpath)
     assert "No match for Username and/or Password." in notification_area.text
-    assert_displayed_unique_element(browser, field_username_xpath)
-    assert_displayed_unique_element(browser, field_password_xpath)
-    assert_displayed_unique_element(browser, button_xpath)
+    get_displayed_unique_element(browser, field_username_xpath)
+    get_displayed_unique_element(browser, field_password_xpath)
+    get_displayed_unique_element(browser, button_xpath)
     assert "user_token" not in browser.current_url

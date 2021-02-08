@@ -1,5 +1,5 @@
 import pytest
-from helpers import assert_displayed_unique_element
+from helpers import get_displayed_unique_element
 
 
 @pytest.fixture
@@ -20,7 +20,7 @@ def test_is_main_carousel_present(browser):
     проверка отображения главного баннера
     """
     main_banner_xpath = "//*[@id='common-home']"
-    assert_displayed_unique_element(browser, main_banner_xpath)
+    get_displayed_unique_element(browser, main_banner_xpath)
 
 
 def test_count_elements_in_featured_row_equals_four(browser):
@@ -36,7 +36,7 @@ def test_is_second_carousel_present(browser):
     проверка отображения баннера с логотипами
     """
     second_banner_xpath = "//*[@id='carousel0']"
-    assert_displayed_unique_element(browser, second_banner_xpath)
+    get_displayed_unique_element(browser, second_banner_xpath)
 
 
 def test_text_of_header_is_featured(browser):
@@ -45,5 +45,5 @@ def test_text_of_header_is_featured(browser):
     """
     h3_xpath = "//*[@id='content']/h3"
     h3 = browser.find_element_by_xpath(h3_xpath)
-    assert_displayed_unique_element(browser, h3_xpath)
+    get_displayed_unique_element(browser, h3_xpath)
     assert h3.text == "Featured"

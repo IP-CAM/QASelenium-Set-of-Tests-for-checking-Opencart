@@ -1,5 +1,5 @@
 import pytest
-from helpers import assert_displayed_unique_element
+from helpers import get_displayed_unique_element
 
 
 @pytest.fixture
@@ -25,10 +25,8 @@ def test_header_of_page(browser):
     """
     проверка отображения заголовка товара в странице продукта
     """
-    header_of_product_xpath = "//*[@id='content']/div/div[2]/h1"
-    assert_displayed_unique_element(browser, header_of_product_xpath)
-
-    header_of_product = browser.find_element_by_xpath(header_of_product_xpath)
+    header_of_product_css = "#content > div > div.col-sm-4 > h1"
+    header_of_product = get_displayed_unique_element(browser, header_of_product_css)
     assert header_of_product.text == "Samsung Galaxy Tab 10.1"
 
 
@@ -37,9 +35,8 @@ def test_features_of_product(browser, name, idx):
     """
     проверка кода, премии, доступного количества продукта
     """
-    features_of_product_xpath = "//*[@id='content']/div/div[2]/ul[1]/li"
-    features_of_product = browser.find_elements_by_xpath(features_of_product_xpath)
-    assert len(features_of_product) == 3
+    features_of_product_css = "#content > div > div.col-sm-4 > ul:nth-child(3) > li"
+    features_of_product = browser.find_elements_by_css_selector(features_of_product_css)
     assert name in features_of_product[idx].text
 
 
@@ -47,10 +44,8 @@ def test_main_image_of_product_is_present(browser):
     """
     проверка отображения изображения продукта
     """
-    main_img_xpath = "//*[@id='content']/div/div[1]/ul[1]/li[1]/a/img"
-    assert_displayed_unique_element(browser, main_img_xpath)
-
-    main_img = browser.find_element_by_xpath(main_img_xpath)
+    main_img_css = "#content > div > div.col-sm-8 > ul.thumbnails > li:nth-child(1) > a > img"
+    main_img = get_displayed_unique_element(browser, main_img_css)
     assert main_img.get_attribute("src").endswith(".jpg")
 
 
@@ -58,14 +53,10 @@ def test_price_of_product(browser):
     """
     проверка цены продукта на валюту и минус
     """
-    price_xpath = "//*[@id='content']/div/div[2]/ul[2]/li[1]/h2"
-    currency_xpath = "//*[@id='form-currency']/div/button/strong"
-
-    assert_displayed_unique_element(browser, price_xpath)
-    assert_displayed_unique_element(browser, currency_xpath)
-
-    currency = browser.find_element_by_xpath(currency_xpath)
-    price = browser.find_element_by_xpath(price_xpath)
+    price_css = "#content > div > div.col-sm-4 > ul:nth-child(4) > li:nth-child(1) > h2"
+    currency_css = "#form-currency > div > button > strong"
+    price = get_displayed_unique_element(browser, price_css)
+    currency = get_displayed_unique_element(browser, currency_css)
 
     assert currency.text in price.text
     float_price = float(price.text.lstrip("$"))
