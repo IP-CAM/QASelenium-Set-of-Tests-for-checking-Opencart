@@ -25,10 +25,9 @@ def test_header_of_block_new_customer(browser):
     """
     проверка наличия заголовка в блоке new customer
     """
-    header_new_customer_xpath = "//*[@id='content']/div/div[1]/div/h2"
-    get_displayed_unique_element(browser, header_new_customer_xpath)
-
-    header_new_customer = browser.find_element_by_xpath(header_new_customer_xpath)
+    block_new_customer_css= "#content > div > div:nth-child(1) > div"
+    header_new_customer_css = block_new_customer_css + " > h2"
+    header_new_customer = get_displayed_unique_element(browser, header_new_customer_css)
     assert header_new_customer.text == "New Customer"
 
 
@@ -36,20 +35,18 @@ def test_header_of_block_returning_customer(browser):
     """
     проверка наличия заголовка в блоке Returning Customer
     """
-    header_returning_customer_xpath = "//*[@id='content']/div/div[2]/div/h2"
-    get_displayed_unique_element(browser, header_returning_customer_xpath)
-
-    header_returning_customer = browser.find_element_by_xpath(header_returning_customer_xpath)
+    block_returning_customer_css = "#content > div > div:nth-child(2) > div"
+    header_returning_customer_css = block_returning_customer_css + " > h2"
+    header_returning_customer = get_displayed_unique_element(browser, header_returning_customer_css)
     assert header_returning_customer.text == "Returning Customer"
 
 
 def test_button_continue_displayed_in_block_new_customer(browser):
-    block_new_customer_xpath = "//*[@id='content']/div/div[1]"
-    button_continue_xpath = "./div/a"
-    get_displayed_unique_element(browser, block_new_customer_xpath)
+    block_new_customer_css = "#content > div > div:nth-child(1) > div"
+    button_continue_css = "a"
 
-    block_new_customer = browser.find_element_by_xpath(block_new_customer_xpath)
-    button_continue = block_new_customer.find_element_by_xpath(button_continue_xpath)
+    block = get_displayed_unique_element(browser, block_new_customer_css)
+    button_continue = block.find_element_by_css_selector(button_continue_css)
 
     assert button_continue.is_displayed()
     assert "Continue" == button_continue.text
@@ -57,18 +54,16 @@ def test_button_continue_displayed_in_block_new_customer(browser):
 
 
 def test_inputs_are_displayed_in_block_returning_customer(browser):
-    """проверка """
-    block_returning_customer_xpath = "//*[@id='content']/div/div[2]"
-    input_email_xpath = ".//*[@id='input-email']"
-    input_password_xpath = ".//*[@id='input-password']"
-    button_login_xpath = "./div/form/input"
+    """проверка отображения полей имени и пароля клиента и кнопки авторизации"""
+    block_returning_customer_css = "#content > div > div:nth-child(2) > div"
+    input_email_css = "#input-email"
+    input_password_css = "#input-password"
+    button_login_css = "form > input"
 
-    get_displayed_unique_element(browser, block_returning_customer_xpath)
-
-    block_returning_customer = browser.find_element_by_xpath(block_returning_customer_xpath)
-    input_email = block_returning_customer.find_element_by_xpath(input_email_xpath)
-    input_password = block_returning_customer.find_element_by_xpath(input_password_xpath)
-    button_login = block_returning_customer.find_element_by_xpath(button_login_xpath)
+    block = get_displayed_unique_element(browser, block_returning_customer_css)
+    input_email = block.find_element_by_css_selector(input_email_css)
+    input_password = block.find_element_by_css_selector(input_password_css)
+    button_login = block.find_element_by_css_selector(button_login_css)
 
     assert input_email.is_displayed()
     assert input_password.is_displayed()
