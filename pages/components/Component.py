@@ -42,3 +42,6 @@ class Component:
 
     def _get_elements(self, selector, link_text=None):
         return self.__elements(selector, link_text)
+
+    def _get_element(self, selector, link_text=None):
+        return self.__element(selector, 0, link_text)

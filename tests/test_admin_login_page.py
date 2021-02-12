@@ -1,51 +1,54 @@
 import pytest
-from helpers import get_displayed_unique_element
+from pages.LoginPage import LoginPage
 
 
 @pytest.fixture
-def admin_url(base_url):
-    return f"{base_url}/admin/"
+def admin_url(browser, base_url):
+    return base_url + "/admin/index.php?route=common/login"
 
 
 @pytest.fixture
-def browser(browser, admin_url):
-    browser.get(admin_url)
-    return browser
+def loginpage(browser, admin_url):
+    page = LoginPage(browser, admin_url)
+    page.open()
+    return page
 
 
-def test_browser_title_is_administration(admin_url, browser):
-    """
-     проверка заголовка страницы Administration в браузере
-    """
-    assert admin_url == browser.current_url
-    assert "Administration" in browser.title
+def test_browser_title_is_administration(loginpage):
+    """проверка заголовка страницы Administration в браузере"""
+    assert "Administration" in loginpage.get_title()
 
 
-def test_header_of_block_login(browser):
-    """
-    проверка отображения заголовка с текстом о вводе логина и пароля
-    """
-    header_admin_login_css = "#content > div > div > div > div > div.panel-heading > h1"
-    header_login = get_displayed_unique_element(browser, header_admin_login_css)
-    assert header_login.text == "Please enter your login details."
+def test_text_of_forms_header(loginpage):
+    """проверка отображения заголовка с текстом о вводе логина и пароля"""
+    header = loginpage.get_form_header()
+    assert header.is_displayed()
+    assert header.text == "Please enter your login details."
 
 
-def test_field_username_is_visible(browser):
-    """проверка отображения поля ввода имени пользователя"""
-    field_username_css = "#input-username"
-    field_username = get_displayed_unique_element(browser, field_username_css)
+def test_field_username(loginpage):
+    """проверка отображения поля ввода имени, пароля пользователя и кнопки авторизации"""
+    field_username = loginpage.get_input_username()
+    assert field_username.is_displayed()
     assert field_username.get_attribute("placeholder") == "Username"
 
 
-def test_field_password_is_visible(browser):
+def test_field_password(loginpage):
     """проверка отображения поля ввода пароля пользователя"""
-    field_password_css = "#input-password"
-    field_password = get_displayed_unique_element(browser, field_password_css)
+    field_password = loginpage.get_input_password()
+    assert field_password.is_displayed()
     assert field_password.get_attribute("placeholder") == "Password"
 
 
-def test_button_login_is_visible(browser):
+def test_button_login(loginpage):
     """проверка отображения кнопки авторизации пользователя"""
-    button_login_css = "#content > div > div > div > div > div.panel-body > form > div.text-right > button"
-    button_login = get_displayed_unique_element(browser, button_login_css)
+    button_login = loginpage.get_button_login()
+    assert button_login.is_displayed()
     assert button_login.text == "Login"
+
+
+def test_forgotten_password_link(loginpage):
+    """проверка отображения ссылки восстановления пароля"""
+    forgotten_password_link = loginpage.get_forgotten_password_link()
+    assert forgotten_password_link.is_displayed()
+    assert forgotten_password_link.text == "Forgotten Password"
