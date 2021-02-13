@@ -3,13 +3,9 @@ from pages.CategoryPage import CategoryPage
 
 
 @pytest.fixture
-def desktops_url(base_url):
-    return f"{base_url}/desktops"
-
-
-@pytest.fixture
-def desktops_page(browser, desktops_url):
-    page = CategoryPage(browser, desktops_url)
+def desktops_page(browser, base_url):
+    url = f"{base_url}/desktops"
+    page = CategoryPage(browser, url)
     page.open()
     return page
 

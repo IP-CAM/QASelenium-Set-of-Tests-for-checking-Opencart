@@ -3,13 +3,14 @@ from pages.LoginPage import LoginPage
 
 
 @pytest.fixture
-def admin_url(browser, base_url):
-    return base_url + "/admin/index.php?route=common/login"
+def user_pass():
+    return "user", "bitnami"
 
 
 @pytest.fixture
-def loginpage(browser, admin_url):
-    page = LoginPage(browser, admin_url)
+def loginpage(browser, base_url):
+    url = base_url + "/admin/index.php?route=common/login"
+    page = LoginPage(browser, url)
     page.open()
     return page
 
@@ -52,3 +53,11 @@ def test_forgotten_password_link(loginpage):
     forgotten_password_link = loginpage.get_forgotten_password_link()
     assert forgotten_password_link.is_displayed()
     assert forgotten_password_link.text == "Forgotten Password"
+
+
+@pytest.mark.skip
+def test_login(loginpage, user_pass):
+    """проверка корректной авторизации"""
+    user, password = user_pass
+    adminpage = loginpage.login(user, password)
+    pass  # TODO реализовать методы получения элементов у страницы AdminPage
