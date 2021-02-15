@@ -11,7 +11,7 @@ class AdminPage(BasePage):
                                         self.url)
 
     def get_logout_link(self):
-        return self._get_element(locator.LOGOUT)
+        return self._wait_for_visible(locator.LOGOUT, wait=10)
 
     def logout(self):
         self.get_logout_link().click()
@@ -22,3 +22,17 @@ class AdminPage(BasePage):
 
     def get_left_menu_top_items(self):
         return self._get_elements(locator.MENU_TOP_ITEMS)
+
+    def get_top_item_in_left_menu_by_name(self, path_menu: str):
+        raw_items = path_menu.split('>')
+        for item in list(map(str.strip, raw_items)):
+            xpath = f'//*[@id="menu"]//a[contains(text(), "{item}")]'
+            find = {'xpath': xpath}
+            el = self._wait_for_visible(find)
+            el.click()
+
+    def get_product_table(self):
+        return self._get_element(locator.PRODUCT_TABLE)
+
+    def get_product_table_headers(self):
+        return self._get_elements(locator.COLUMNS_OF_HEAD_TABLE)
