@@ -1,6 +1,5 @@
 import pytest
-from helpers import get_displayed_unique_element
-import time
+from utils.helpers import get_displayed_unique_element
 
 
 @pytest.fixture

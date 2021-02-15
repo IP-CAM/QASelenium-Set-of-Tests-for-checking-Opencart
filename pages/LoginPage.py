@@ -20,6 +20,7 @@ class LoginPage(BasePage):
         return self._get_element(locator.FIELD_PASSWORD)
 
     def get_button_login(self):
+
         return self._get_element(locator.BUTTON_LOGIN)
 
     def get_forgotten_password_link(self):
@@ -29,4 +30,7 @@ class LoginPage(BasePage):
         self.get_input_username().send_keys(username)
         self.get_input_password().send_keys(password)
         self.get_button_login().click()
-        return AdminPage(self.driver)
+        return AdminPage(driver=self.driver, base_url=None, prev_page=self)
+
+    def get_notification(self):
+        return self._get_element(locator.NOTIFICATION)

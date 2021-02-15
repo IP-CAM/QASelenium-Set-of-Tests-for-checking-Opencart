@@ -4,3 +4,4 @@ class LoginPageLocators:
     FIELD_PASSWORD = {'css': '#input-password'}
     BUTTON_LOGIN = {'xpath': '//*[@id="content"]//button'}
     LINK_FORGOTTEN_PASSWORD = {'xpath': '//*[@id="content"]//a'}
+    NOTIFICATION = {'css': '#content div.alert-danger'}

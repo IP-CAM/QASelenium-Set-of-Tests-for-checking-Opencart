@@ -1,5 +1,4 @@
 import pytest
-from helpers import get_displayed_unique_element
 from pages.ProductPage import ProductPage
 
 
