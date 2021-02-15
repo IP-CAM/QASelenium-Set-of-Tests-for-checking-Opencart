@@ -19,14 +19,17 @@ def product_page(base_url, right_user, browser):
 
 
 def test_title_of_product(product_page):
+    """проверка заголовка страницы"""
     assert product_page.get_title() == 'Products'
 
 
 def test_count_of_column(product_page):
+    """проверка количества колонок в таблице товаров"""
     assert len(product_page.get_product_table_headers()) == 8
 
 
 def test_name_column_of_products_table(product_page):
+    """проверка наименования колонок в таблице"""
     names = ["Image", "Product Name", "Model", "Price", "Quantity", "Status", "Action"]
     for idx, col in enumerate(product_page.get_product_table_headers()[1:]):
         assert names[idx] in col.text

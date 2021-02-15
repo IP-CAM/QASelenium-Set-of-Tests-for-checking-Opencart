@@ -21,6 +21,7 @@ def wrong_user():
 
 
 def test_correct_login(login_page, right_user):
+    """проверка корректного логина"""
     user, password = right_user
     admin_page = login_page.login(user, password)
     assert "common/logout" in admin_page.get_logout_link().get_attribute("href")
@@ -28,6 +29,7 @@ def test_correct_login(login_page, right_user):
 
 
 def test_incorrect_login(login_page, wrong_user):
+    """проверка некорректного логина"""
     user, password = wrong_user
     login_page.login(user, password)
     assert "No match for Username and/or Password." in login_page.get_notification().text
