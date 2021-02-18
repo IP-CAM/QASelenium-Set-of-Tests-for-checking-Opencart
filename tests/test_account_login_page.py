@@ -12,7 +12,7 @@ def account_login_page(browser, base_url):
 
 def test_browser_title_is_account_login(account_login_page):
     """проверка заголовка страницы Account Login в браузере"""
-    assert "Account Login" in account_login_page.get_title()
+    assert "Account Login" in account_login_page.title
 
 
 def test_header_of_block_new_customer(account_login_page):

@@ -12,7 +12,7 @@ def product_page(browser, base_url):
 
 def test_browser_title_of_product(product_page):
     """проверка заголовка браузера на странице продукта"""
-    assert product_page.get_title() == "Samsung Galaxy Tab 10.1"
+    assert product_page.title == "Samsung Galaxy Tab 10.1"
 
 
 def test_header_of_page(product_page):

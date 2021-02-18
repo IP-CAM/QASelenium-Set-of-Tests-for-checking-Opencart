@@ -20,7 +20,7 @@ def product_page(base_url, right_user, browser):
 
 def test_title_of_product(product_page):
     """проверка заголовка страницы"""
-    assert product_page.get_title() == 'Products'
+    assert product_page.title == 'Products'
 
 
 def test_count_of_column(product_page):

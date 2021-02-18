@@ -11,7 +11,7 @@ def mainpage(browser, base_url):
 
 def test_browser_title(mainpage):
     """проверка заголовка главной страницы"""
-    assert "Your Store" in mainpage.get_title()
+    assert "Your Store" in mainpage.title
 
 
 def test_images_of_main_banner_have_ext_jpg(mainpage):

@@ -17,7 +17,7 @@ def login_page(browser, base_url):
 
 def test_browser_title_is_administration(login_page):
     """проверка заголовка страницы Administration в браузере"""
-    assert "Administration" in login_page.get_title()
+    assert "Administration" in login_page.title
 
 
 def test_text_of_forms_header(login_page):

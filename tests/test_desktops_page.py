@@ -12,7 +12,7 @@ def desktops_page(browser, base_url):
 
 def test_browser_title_is_desktops(desktops_page):
     """проверка заголовка страницы Desktops"""
-    assert desktops_page.get_title() == "Desktops"
+    assert desktops_page.title == "Desktops"
 
 
 def test_text_of_header_of_category_page(desktops_page):
