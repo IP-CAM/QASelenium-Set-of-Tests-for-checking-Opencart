@@ -1,56 +1,47 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.opera.options import Options as OperaOptions
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-import os
 
 
 def pytest_addoption(parser):
-    parser.addoption("--maximized", action="store_true", help="Maximize browser windows")
-    parser.addoption("--headless", action="store_true", help="Run headless")
-    parser.addoption("--browser", action="store", choices=["chrome", "firefox", "opera", "edge", "yandex"],
+    parser.addoption("--browser", action="store", choices=["chrome", "firefox", "opera"],
                      help="browser", required=True)
+    parser.addoption("--bversion", action="store", help="version of browser")
 
 
 @pytest.fixture
 def base_url():
-    return "http://" + os.environ.get("LOCAL_IP")
+    return "https://demo.opencart.com"
 
 
 @pytest.fixture
 def browser(request):
     browser = request.config.getoption("--browser")
-    headless = request.config.getoption("--headless")
-    maximized = request.config.getoption("--maximized")
+    bversion = request.config.getoption("--bversion")
 
     driver = None
 
     def close_browser():
         if driver is not None:
-            driver.close()
+            driver.quit()
 
     request.addfinalizer(close_browser)
 
-    if browser == "chrome":
-        options = ChromeOptions()
-        if headless: options.headless = True
-        driver = webdriver.Chrome(options=options)
-    elif browser == "firefox":
-        options = webdriver.FirefoxOptions()
-        if headless: options.headless = True
-        driver = webdriver.Firefox(options=options)
-    elif browser == "opera":
-        options = OperaOptions()
-        if headless: options.headless = True
-        driver = webdriver.Opera(executable_path="operadriver", options=options)
-    elif browser == "edge":
-        driver = webdriver.Edge(executable_path="msedgedriver")
-    elif browser == "yandex":
-        options = webdriver.ChromeOptions()
-        if headless: options.headless = True
-        driver = webdriver.Chrome(executable_path="yandexdriver", options=options)
+    caps = {
+        "browserName": browser,
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": False
+        }
+    }
 
-    if maximized:
-        driver.maximize_window()
+    if bversion:
+        caps["browserVersion"] = bversion
+
+    driver = webdriver.Remote(
+        command_executor="http://127.0.0.1:4444/wd/hub/",
+        desired_capabilities=caps
+    )
+
+    driver.maximize_window()
 
     return driver
