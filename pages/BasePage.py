@@ -13,6 +13,14 @@ class BasePage:
         self._driver.get(self._url)
 
     @property
+    def driver(self):
+        return self._driver
+
+    @driver.setter
+    def driver(self, driver):
+        self._driver = driver
+
+    @property
     def title(self):
         return self._driver.title
 
