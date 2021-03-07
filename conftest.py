@@ -6,11 +6,16 @@ from selenium import webdriver
 
 LOG_FILE = '../logs/selenium.log'
 
+if os.path.exists(LOG_FILE):
+    os.remove(LOG_FILE)
+    print("Logs removed")
+
 logging.basicConfig(level=logging.DEBUG,
                     filename=LOG_FILE,
                     format='%(asctime)s.%(msecs)03d | %(levelname)s | %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S'
                     )
+print('logging configured')
 
 
 def pytest_addoption(parser):
@@ -19,13 +24,6 @@ def pytest_addoption(parser):
     parser.addoption("--bversion", action="store", help="version of browser")
     parser.addoption("--executor", action="store", help="address of executor", default="127.0.0.1")
     parser.addoption("--pexec", action="store", help="port of executor", default="4444")
-
-
-@pytest.fixture(scope='session')
-def rm_logs():
-    if os.path.exists(LOG_FILE):
-        os.remove(LOG_FILE)
-        print("Logs removed")
 
 
 @pytest.fixture
