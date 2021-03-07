@@ -1,7 +1,6 @@
 # pythonQASelenium
 
-##Набор тестов для проверки opencart
-
+## Набор тестов для проверки opencart
 - helpers.py - вспомогательные методы
 - test_account_page.py - проверка отображения элементов страницы для регистрации пользователя
 - test_admin_login_page.py - проверка формы авторизации администратора
@@ -11,7 +10,7 @@
 - test_main_page.py - проверка отображения элементов посадочной страницы
 - test_product_page.py - проверка отображения элементов страницы с продуктом
 
-##Локальный запуск opencart
+## Локальный запуск opencart
 1. Выполнить загрузку образа `docker pull bitnami/opencart`
 
 2. Установить переменные среды:
@@ -27,14 +26,14 @@
 выполнить:
 `docker prune system --volumes`
 
-##Локальный запуск selenoid
+## Локальный запуск selenoid
 1. Установить Docker
 2. Загрузить актуальный Configuration manager с ресурса `https://github.com/aerokube/cm/releases/`
 3. Загрузить браузеры `./cm selenoid configure --browsers chrome;firefox;opera` (загрузится последняя и предпоследняя версии браузера)
 4. Запустить cm: `./cm selenoid start --vnc`(stop для остановки)
 5. Запустить selenoid-ui: `./cm selenoid-ui start`(stop для остановки)
 
-##Запуск тестов
+## Запуск тестов
 `pytest --browser opera -n 5` - запустить тесты в браузере Opera в 5 потоков
 - `--browser` - браузер
 - `-n` - указание количества потоков при многопоточном выполнении тестов
