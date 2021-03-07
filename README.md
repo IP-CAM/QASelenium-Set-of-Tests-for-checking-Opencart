@@ -1,4 +1,4 @@
-# pythonQASelenium
+# pythonQASelenoid
 
 ## Набор тестов для проверки opencart
 - helpers.py - вспомогательные методы
