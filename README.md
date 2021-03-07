@@ -34,6 +34,12 @@
 5. Запустить selenoid-ui: `./cm selenoid-ui start`(stop для остановки)
 
 ## Запуск тестов
-`pytest --browser opera -n 5` - запустить тесты в браузере Opera в 5 потоков
+`pytest --browser opera -n 5 --alluredir=../allure_results` - запустить тесты в браузере Opera в 5 потоков с генерацией данных для отчета Allure
 - `--browser` - браузер
 - `-n` - указание количества потоков при многопоточном выполнении тестов
+- `--alluredir=../allure_results` - директория для файлов Allure
+
+## Отчет Allure
+1. Загрузить Allure `https://github.com/allure-framework/allure2/releases`
+2. Прописать путь к исполняемому файлу allure в переменных среды окружения
+3. После запуска тестов с указанием `--alluredir` и в директории с файлами данных Allure запустить `allure serve`
